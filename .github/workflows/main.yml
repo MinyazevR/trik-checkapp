@@ -88,10 +88,10 @@ jobs:
         run: sudo apt-get update && sudo apt-get install bear=3.0.18-1
 
       - name: Out of source
-        run: mkdir -p build
+        run: mkdir -p build && cd build && pwd
 
       - name: QMake
-        run: qmake ../trik-checkapp/trikCheckApp.pro CONFIG+=release
+        run: pwd && qmake ../trik-checkapp/trikCheckApp.pro CONFIG+=release
         working-directory: ./build
 
       - name: QMake all
@@ -110,7 +110,7 @@ jobs:
         if: ${{ matrix.os-name != 'linux' }}
         run: make -j $(nproc) all 
         working-directory: ./build
-        
+
       - name: Lint
         if: ${{ matrix.os-name == 'linux' }}
         uses: cpp-linter/cpp-linter-action@v2.12.0
