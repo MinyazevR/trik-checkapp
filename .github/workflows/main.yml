@@ -82,9 +82,15 @@ jobs:
             else
               true
             fi
+            
+      - name: Install dependencies
+      	run: sudo apt-get update && sudo apt-get install bear=3.0.18-1
+      	
+      - name: Out of source
+      	run: mkdir -p build && cd build
 
       - name: QMake
-        run: qmake trikCheckApp.pro CONFIG+=release
+        run: qmake ../trik-checkapp/trikCheckApp.pro CONFIG+=release
 
       - name: QMake all
         timeout-minutes: 1
@@ -92,4 +98,22 @@ jobs:
 
       - name: Make all
         timeout-minutes: 10
-        run: make -j $(nproc) all
+        run: bear -- make -j $(nproc) all
+    
+      - name: Successfully exit if not Linux
+        if: ${{ matrix.os-name != 'linux' }}
+        run: exit 0
+        
+      - name: Lint
+      - uses: cpp-linter/cpp-linter-action@v2.12.0
+        id: linter
+        with:
+          style: 'file'
+          tidy-checks: ''
+          version: 15
+          database: '.'
+          
+      - name: Exit
+        if: steps.linter.outputs.checks-failed > 0
+        run: exit 1
+      
