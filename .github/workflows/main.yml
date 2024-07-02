@@ -116,6 +116,7 @@ jobs:
           tidy-checks: ''
           version: 15
           database: 'build'
+          verbosity: 'debug'
           
       - name: Exit
         if: ${{ matrix.os-name == 'linux' && steps.linter.outputs.checks-failed > 0 }}
