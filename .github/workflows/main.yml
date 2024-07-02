@@ -105,7 +105,7 @@ jobs:
       - name: Make all
         timeout-minutes: 10
         if: ${{ matrix.os-name != 'linux' }}
-        run: bear -- make -j $(nproc) all && cd ..
+        run: make -j $(nproc) all && cd ..
 
       - name: Successfully exit if not Linux
         if: ${{ matrix.os-name != 'linux' }}
