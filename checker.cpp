@@ -20,6 +20,7 @@
 #include <QTime>
 #include <QtConcurrent/QtConcurrent>
 
+
 #include "htmlTemplates.h"
 #include "optionsAliases.h"
 
