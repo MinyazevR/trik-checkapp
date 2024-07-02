@@ -97,10 +97,16 @@ jobs:
         timeout-minutes: 1
         run: make -j $(nproc) qmake_all
 
+      - name: Make all with bear
+        timeout-minutes: 10
+        if: ${{ matrix.os-name == 'linux' }}
+        run: bear -- make -j $(nproc) all && cd ..
+    
       - name: Make all
         timeout-minutes: 10
-        run: bear -- make -j $(nproc) all
-    
+        if: ${{ matrix.os-name != 'linux' }}
+        run: bear -- make -j $(nproc) all && cd ..
+
       - name: Successfully exit if not Linux
         if: ${{ matrix.os-name != 'linux' }}
         run: exit 0
