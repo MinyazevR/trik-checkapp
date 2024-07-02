@@ -106,12 +106,9 @@ jobs:
         timeout-minutes: 10
         if: ${{ matrix.os-name != 'linux' }}
         run: make -j $(nproc) all && cd ..
-
-      - name: Successfully exit if not Linux
-        if: ${{ matrix.os-name != 'linux' }}
-        run: exit 0
         
       - name: Lint
+        if: ${{ matrix.os-name == 'linux' }}
         uses: cpp-linter/cpp-linter-action@v2.12.0
         id: linter
         with:
@@ -121,6 +118,6 @@ jobs:
           database: 'build'
           
       - name: Exit
-        if: steps.linter.outputs.checks-failed > 0
+        if: ${{ matrix.os-name == 'linux' && steps.linter.outputs.checks-failed > 0 }}
         run: exit 1
       
