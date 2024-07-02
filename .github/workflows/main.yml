@@ -84,6 +84,7 @@ jobs:
             fi
             
       - name: Install dependencies
+        if: ${{ matrix.os-name == 'linux' }}
         run: sudo apt-get update && sudo apt-get install bear=3.0.18-1
 
       - name: Out of source
@@ -111,7 +112,7 @@ jobs:
           style: 'file'
           tidy-checks: ''
           version: 15
-          database: '.'
+          database: 'build'
           
       - name: Exit
         if: steps.linter.outputs.checks-failed > 0
