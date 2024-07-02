@@ -20,7 +20,6 @@
 #include <QTime>
 #include <QtConcurrent/QtConcurrent>
 
-
 #include "htmlTemplates.h"
 #include "optionsAliases.h"
 
@@ -397,3 +396,7 @@ QString Checker::getErrorMessage(const QString &message)
     }
     return message.mid(messageLastIndex, endErrorIndex - messageLastIndex + 1);
 }
+
+
+
+
