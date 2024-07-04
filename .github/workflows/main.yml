@@ -128,9 +128,9 @@ jobs:
 
       - name: Clazy-standalone
         if: ${{ matrix.os-name == 'linux'}}
-        uses: MinyazevR/clazy-action@da4ada046c6412c8298741b3c71b1feeb17a8ffb
+        uses: MinyazevR/clazy-action@37b0017cb745fd831b4091c3fc25d5ec0708f0df
         with:
           checks: 'level1'
           version: 1.11
           database: '../build'
-          errors: "clazy-non-pod-global-static"
+          errors: "-Wclazy-non-pod-global-static"
