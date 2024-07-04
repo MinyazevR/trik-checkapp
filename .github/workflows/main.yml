@@ -128,7 +128,7 @@ jobs:
 
       - name: Clazy-standalone
         if: ${{ matrix.os-name == 'linux'}}
-        uses: MinyazevR/clazy-action@0123b4e82efd59fa260d03779044c0034c5ff687
+        uses: MinyazevR/clazy-action@6ba52924695ac5ca006b8a5981eed5cdc190b5fd
         with:
           checks: 'level1'
           version: 1.11
