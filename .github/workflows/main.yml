@@ -122,6 +122,14 @@ jobs:
           database: './build'
           verbosity: 'info'
           
-      - name: Exit
+      - name: Clang-tidy exit
         if: ${{ matrix.os-name == 'linux' && steps.linter.outputs.checks-failed > 0 }}
         run: exit 1
+
+      - name: Clazy-standalone
+        if: ${{ matrix.os-name == 'linux'}}
+        uses: MinyazevR/clazy-action@e882863f2055f813af9900bbf94940476a00b06f
+        with:
+          checks: 'level1'
+          version: 11.1
+          database: './build'
