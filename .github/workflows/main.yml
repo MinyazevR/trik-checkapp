@@ -88,28 +88,28 @@ jobs:
         run: sudo apt-get update && sudo apt-get install bear=3.0.18-1
 
       - name: Create build dir
-        run: mkdir -p build
+        run: mkdir -p ../build
 
       - name: QMake
-        run: qmake ../trikCheckApp.pro CONFIG+=release
-        working-directory: ./build
+        run: qmake ../trik-checkapp/trikCheckApp.pro CONFIG+=release
+        working-directory: ../build
 
       - name: QMake all
         timeout-minutes: 1
         run: make -j $(nproc) qmake_all
-        working-directory: ./build
+        working-directory: ../build
 
       - name: Make all with bear
         timeout-minutes: 10
         if: ${{ matrix.os-name == 'linux' }}
         run: bear -- make -j $(nproc) all
-        working-directory: ./build
+        working-directory: ../build
     
       - name: Make all
         timeout-minutes: 10
         if: ${{ matrix.os-name != 'linux' }}
         run: make -j $(nproc) all 
-        working-directory: ./build
+        working-directory: ../build
 
       - name: Lint
         if: ${{ matrix.os-name == 'linux'}}
@@ -119,7 +119,7 @@ jobs:
           style: 'file'
           tidy-checks: ''
           version: 15
-          database: './build'
+          database: '../build'
           verbosity: 'info'
           
       - name: Clang-tidy exit
@@ -132,4 +132,4 @@ jobs:
         with:
           checks: 'level1'
           version: 1.11
-          database: './build'
+          database: '../build'
