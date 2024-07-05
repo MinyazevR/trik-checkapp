@@ -133,5 +133,5 @@ jobs:
           checks: 'level1'
           version: 1.11
           database: '../build'
-          errors: "connect-by-name"
+          wargnings_as_errors: "connect-by-name"
 
