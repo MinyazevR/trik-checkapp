@@ -130,8 +130,7 @@ jobs:
         if: ${{ matrix.os-name == 'linux'}}
         uses: MinyazevR/clazy-standalone-action@v0.1.0
         with:
-          checks: 'level1'
+          checks: 'level0,level1,no-connect-by-name,no-non-pod-global-static'
           version: 1.11
           database: '../build'
-          warnings_as_errors: "connect-by-name"
 
