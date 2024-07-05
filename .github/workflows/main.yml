@@ -128,10 +128,10 @@ jobs:
 
       - name: Clazy-standalone
         if: ${{ matrix.os-name == 'linux'}}
-        uses: MinyazevR/clazy-action@93e46433e032fb8df34c21c9df6229dcc91f6749
+        uses: MinyazevR/clazy-action@4c948f2ae3b11282738371ddd3fce4ee449b3529
         with:
           checks: 'level1'
           version: 1.11
           database: '../build'
           errors: "connect-by-name"
-          
+
