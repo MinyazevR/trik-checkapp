@@ -91,6 +91,15 @@ jobs:
         if: ${{ matrix.os == 'ubuntu-latest' }}
         run: sudo apt-get update && sudo apt-get install bear
 
+      - name: Clazy-standalone
+        if: ${{ matrix.os == 'ubuntu-latest'}}
+        uses: MinyazevR/clazy-standalone-action@02311bab81e145563631a00f249cfedb02a4dd3b
+        with:
+          checks: 'level0,level1,no-connect-by-name,no-non-pod-global-static'
+          database: '../build'
+          install-stable: true
+          only-diff: true
+          
       - name: Create build dir
         run: mkdir -p ../build
 
@@ -129,13 +138,4 @@ jobs:
       - name: Clang-tidy exit
         if: ${{  matrix.os == 'ubuntu-latest' && steps.linter.outputs.checks-failed > 0 }}
         run: exit 1
-
-      - name: Clazy-standalone
-        if: ${{ matrix.os == 'ubuntu-latest'}}
-        uses: MinyazevR/clazy-standalone-action@02311bab81e145563631a00f249cfedb02a4dd3b
-        with:
-          checks: 'level0,level1,no-connect-by-name,no-non-pod-global-static'
-          database: '../build'
-          install-stable: true
-          only-diff: true
 
