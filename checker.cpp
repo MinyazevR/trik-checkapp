@@ -26,6 +26,7 @@ const int BACKGROUND_TIMELIMIT = 20 * 1000;
 const int MAX_VISIBLE_THREADS = 2;
 const QString TEMP_POSTFIX = "tmp_patched_qrs";
 
+
 #ifdef Q_OS_LINUX
 void gnomeEnvironmentHandler(QProcess &process) {
 	QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
