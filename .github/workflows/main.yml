@@ -132,9 +132,10 @@ jobs:
 
       - name: Clazy-standalone
         if: ${{ matrix.os == 'ubuntu-latest'}}
-        uses: MinyazevR/clazy-standalone-action@v0.2.0
+        uses: MinyazevR/clazy-standalone-action@02311bab81e145563631a00f249cfedb02a4dd3b
         with:
           checks: 'level0,level1,no-connect-by-name,no-non-pod-global-static'
           database: '../build'
           install-stable: true
+          only-diff: true
 
