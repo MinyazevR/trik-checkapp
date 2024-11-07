@@ -4,7 +4,7 @@
 <context>
     <name>Checker</name>
     <message>
-        <location filename="../checker.cpp" line="+51"/>
+        <location filename="../checker.cpp" line="+52"/>
         <source>Cancel</source>
         <translation>Отменить</translation>
     </message>
