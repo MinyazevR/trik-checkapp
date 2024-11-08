@@ -50,7 +50,9 @@ jobs:
             cygpath -w /usr/bin >> $GITHUB_PATH || :
 
       - uses: actions/checkout@v4
-
+        with:
+          fetch-depth: 2
+          
       - name: Install Qt        
         uses: jurplel/install-qt-action@v4
         with:
@@ -90,7 +92,7 @@ jobs:
       - name: Install dependencies
         if: ${{ matrix.os == 'ubuntu-latest' }}
         run: sudo apt-get update && sudo apt-get install bear
-
+          
       - name: Create build dir
         run: mkdir -p ../build
 
@@ -115,6 +117,15 @@ jobs:
         run: make -j $(nproc) all 
         working-directory: ../build
 
+      - name: Clazy-standalone
+        if: ${{ matrix.os == 'ubuntu-latest'}}
+        uses: MinyazevR/clazy-standalone-action@c5844be084903bf1662e011cf7c54cefe6c08499
+        with:
+          checks: 'level0,level1,no-connect-by-name'
+          install-stable: true
+          only-diff: true
+          database: '../build'
+          
       - name: Lint
         if: ${{ matrix.os == 'ubuntu-latest'}}
         uses: cpp-linter/cpp-linter-action@v2.12.0
@@ -129,12 +140,4 @@ jobs:
       - name: Clang-tidy exit
         if: ${{  matrix.os == 'ubuntu-latest' && steps.linter.outputs.checks-failed > 0 }}
         run: exit 1
-
-      - name: Clazy-standalone
-        if: ${{ matrix.os == 'ubuntu-latest'}}
-        uses: MinyazevR/clazy-standalone-action@v0.2.0
-        with:
-          checks: 'level0,level1,no-connect-by-name,no-non-pod-global-static'
-          database: '../build'
-          install-stable: true
 
